@@ -1,0 +1,15 @@
+D:\submarine\bin\Debug\net8.0\submarine.exe
+D:\submarine\bin\Debug\net8.0\submarine.deps.json
+D:\submarine\bin\Debug\net8.0\submarine.runtimeconfig.json
+D:\submarine\bin\Debug\net8.0\submarine.dll
+D:\submarine\bin\Debug\net8.0\submarine.pdb
+D:\submarine\obj\Debug\net8.0\submarine.GeneratedMSBuildEditorConfig.editorconfig
+D:\submarine\obj\Debug\net8.0\submarine.AssemblyInfoInputs.cache
+D:\submarine\obj\Debug\net8.0\submarine.AssemblyInfo.cs
+D:\submarine\obj\Debug\net8.0\submarine.csproj.CoreCompileInputs.cache
+D:\submarine\obj\Debug\net8.0\submarine.sourcelink.json
+D:\submarine\obj\Debug\net8.0\submarine.dll
+D:\submarine\obj\Debug\net8.0\refint\submarine.dll
+D:\submarine\obj\Debug\net8.0\submarine.pdb
+D:\submarine\obj\Debug\net8.0\submarine.genruntimeconfig.cache
+D:\submarine\obj\Debug\net8.0\ref\submarine.dll
