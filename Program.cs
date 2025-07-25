@@ -75,8 +75,8 @@ class RandomSubmarine : BaseSubmarine
 
     public override void Move()
     {
-        int[] randomRows = { -1, 1,0 };
-        int[] randomCols = { 0, -1, 1 };
+        int[] randomRows = { -1, 1, 0 };
+        int[] randomCols = { -1, 1, 0 };
         int ran = random.Next(3);
 
         int newRow = (Position.Row + randomRows[ran]);
@@ -120,7 +120,7 @@ class Board
 
         if (string.IsNullOrEmpty(inputstring) || inputstring.Length != 2)
         {
-            Console.WriteLine("入力は2文字で行ってください。（例: 1A , A1　など）");
+            Console.WriteLine("文字数が足りません。（例: 1A , A1）");
             return;
         }
 
@@ -143,7 +143,7 @@ class Board
         }
         else
         {
-            Console.WriteLine("1桁の数字とアルファベット1文字を入力してください（例: 1A , A1　など）");
+            Console.WriteLine("1桁の数字とアルファベット1文字を入力してください（例: 1A , A1）");
             return;
         }
 
@@ -239,7 +239,5 @@ class Program
             board.Input();
             board.Print();
         }
-
-        Console.WriteLine("ゲームが終了しました。お疲れさまでした。");
     }
 }
