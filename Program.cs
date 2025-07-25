@@ -75,12 +75,12 @@ class RandomSubmarine : BaseSubmarine
 
     public override void Move()
     {
-        int[] random_Rows = { -1, 1,0 };
-        int[] random_Cols = { 0, -1, 1 };
+        int[] randomRows = { -1, 1,0 };
+        int[] randomCols = { 0, -1, 1 };
         int ran = random.Next(3);
 
-        int newRow = (Position.Row + random_Rows[ran]);
-        int newCol = (Position.Column + random_Cols[ran] );
+        int newRow = (Position.Row + randomRows[ran]);
+        int newCol = (Position.Column + randomCols[ran] );
 
         Position = new Position(newRow, newCol);
     }
@@ -116,30 +116,30 @@ class Board
     public void Input()
     {
         Console.Write($"座標を入力してください> ");
-        string? input_string = Console.ReadLine();
+        string? inputstring = Console.ReadLine();
 
-        if (string.IsNullOrEmpty(input_string) || input_string.Length != 2)
+        if (string.IsNullOrEmpty(inputstring) || inputstring.Length != 2)
         {
             Console.WriteLine("入力は2文字で行ってください。（例: 1A , A1　など）");
             return;
         }
 
-        input_string = input_string.ToUpper();
+        inputstring = inputstring.ToUpper();
 
         int row = -1;
         int col = -1;
 
-        if (char.IsDigit(input_string[0]) && char.IsLetter(input_string[1]))
+        if (char.IsDigit(inputstring[0]) && char.IsLetter(inputstring[1]))
         {
-            int.TryParse($"{input_string[0]}", out row);
+            int.TryParse($"{inputstring[0]}", out row);
             row--;
-            col = input_string[1] - 'A';
+            col = inputstring[1] - 'A';
         }
-        else if (char.IsLetter(input_string[0]) && char.IsDigit(input_string[1]))
+        else if (char.IsLetter(inputstring[0]) && char.IsDigit(inputstring[1]))
         {
-            int.TryParse($"{input_string[1]}", out row);
+            int.TryParse($"{inputstring[1]}", out row);
             row--;
-            col = input_string[0] - 'A';
+            col = inputstring[0] - 'A';
         }
         else
         {
