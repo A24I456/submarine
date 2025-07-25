@@ -1,4 +1,5 @@
-﻿enum CellState
+﻿
+enum CellState
 {
     Unselected,
     Selected,
@@ -33,24 +34,83 @@ struct Position
     }
 }
 
+
+abstract class BaseSubmarine
+{
+    public Position Position { get; set; }
+
+    public BaseSubmarine(Position position)
+    {
+        Position = position;
+    }
+
+    public abstract void Move();
+}
+
+
+class SimpleRowSubmarine : BaseSubmarine
+{
+    public SimpleRowSubmarine(Position position) : base(position)
+    { }
+
+    public override void Move()
+    {
+        if (Position.Row < Program.ROW_SIZE - 1)
+        {
+            Position = new Position(Position.Row + 1, Position.Column);
+        }
+        else
+        {
+            Position = new Position(0, Position.Column);
+        }
+    }
+}
+
+
+class RandomSubmarine : BaseSubmarine
+{
+    private static Random random = new Random();
+
+    public RandomSubmarine(Position position) : base(position) { }
+
+    public override void Move()
+    {
+        int[] random_Rows = { -1, 1,0 };
+        int[] random_Cols = { 0, -1, 1 };
+        int ran = random.Next(3);
+
+        int newRow = (Position.Row + random_Rows[ran]);
+        int newCol = (Position.Column + random_Cols[ran] );
+
+        Position = new Position(newRow, newCol);
+    }
+}
+
 class Board
 {
     private CellState[,] cells;
-    private Position submarine;
+    private BaseSubmarine submarine;
     private Position input;
 
-    public Board()
+    public Board(int rowsize, int colsize)
     {
-        cells = new CellState[Program.ROW_SIZE, Program.COLUMN_SIZE];
-        submarine = new Position(4, 4);
+        cells = new CellState[rowsize, colsize];
 
-        for (int i = 0; i < Program.ROW_SIZE; i++)
+        //submarine = new SimpleRowSubmarine(new Position(4, 4));
+        submarine = new RandomSubmarine(new Position(4, 4));
+
+        for (int i = 0; i < rowsize; i++)
         {
-            for (int j = 0; j < Program.COLUMN_SIZE; j++)
+            for (int j = 0; j < colsize; j++)
             {
                 cells[i, j] = CellState.Unselected;
             }
         }
+    }
+
+    public void Update()
+    {
+        submarine.Move();
     }
 
     public void Input()
@@ -65,21 +125,21 @@ class Board
         }
 
         input_string = input_string.ToUpper();
-        char first = input_string[0];
-        char second = input_string[1];
 
         int row = -1;
         int col = -1;
 
-        if (char.IsDigit(first) && char.IsLetter(second))
+        if (char.IsDigit(input_string[0]) && char.IsLetter(input_string[1]))
         {
-            row = first - '0' - 1;
-            col = second - 'A';
+            int.TryParse($"{input_string[0]}", out row);
+            row--;
+            col = input_string[1] - 'A';
         }
-        else if (char.IsLetter(first) && char.IsDigit(second))
+        else if (char.IsLetter(input_string[0]) && char.IsDigit(input_string[1]))
         {
-            row = second - '0' - 1;
-            col = first - 'A';
+            int.TryParse($"{input_string[1]}", out row);
+            row--;
+            col = input_string[0] - 'A';
         }
         else
         {
@@ -105,7 +165,7 @@ class Board
 
         Console.WriteLine($"入力した位置: {input.Row + 1}, {(char)('A' + input.Column)}");
 
-        if (input.Equals(submarine))
+        if (input.Equals(submarine.Position))
         {
             cells[input.Row, input.Column] = CellState.Sunk;
         }
@@ -146,22 +206,23 @@ class Board
             Console.WriteLine("|");
         }
 
-        if (cells[submarine.Row, submarine.Column] == CellState.Sunk)
+        if (cells[submarine.Position.Row, submarine.Position.Column] == CellState.Sunk)
         {
-            Console.WriteLine($"潜水艦の位置は {submarine.Row + 1}, {(char)('A' + submarine.Column)} にあります。撃沈しました。");
+            Console.WriteLine($"潜水艦の位置は {submarine.Position.Row + 1}, {(char)('A' + submarine.Position.Column)} にありました。撃沈しました。");
         }
         else
         {
-            int dist = input.Distance(submarine);
+            int dist = input.Distance(submarine.Position);
             Console.WriteLine($"潜水艦は見つかりませんでした。潜水艦との距離は {dist} です。");
         }
     }
 
     public bool IsFinished()
     {
-        return cells[submarine.Row, submarine.Column] == CellState.Sunk;
+        return cells[submarine.Position.Row, submarine.Position.Column] == CellState.Sunk;
     }
 }
+
 
 class Program
 {
@@ -170,17 +231,14 @@ class Program
 
     static void Main(string[] args)
     {
-        Board board = new Board();
-
-        while (true)
+        Board board = new Board(ROW_SIZE, COLUMN_SIZE);
+        while (!board.IsFinished())
         {
+            board.Update();
             board.Input();
             board.Print();
-            if (board.IsFinished())
-            {
-                Console.WriteLine("ゲームが終了しました。お疲れさまでした。");
-                break;
-            }
         }
+
+        Console.WriteLine("ゲームが終了しました。お疲れさまでした。");
     }
 }

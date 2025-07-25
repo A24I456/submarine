@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("submarine")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1a34585d9a251fc7e1f612feef2c614fa3b97bc8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f5820c7e2ea1a13d324670f976bd6f1e1c532acf")]
 [assembly: System.Reflection.AssemblyProductAttribute("submarine")]
 [assembly: System.Reflection.AssemblyTitleAttribute("submarine")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
