@@ -208,12 +208,13 @@ class Board
 
         if (cells[submarine.Position.Row, submarine.Position.Column] == CellState.Sunk)
         {
-            Console.WriteLine($"潜水艦の位置は {submarine.Position.Row + 1}, {(char)('A' + submarine.Position.Column)} にありました。撃沈しました。");
+            Console.WriteLine($"潜水艦の位置は {submarine.Position.Row + 1}, {(char)('A' + submarine.Position.Column)} ");
+            Console.WriteLine("撃沈しました．");
         }
         else
         {
             int dist = input.Distance(submarine.Position);
-            Console.WriteLine($"潜水艦は見つかりませんでした。潜水艦との距離は {dist} です。");
+            Console.WriteLine($"入力位置から潜水艦までの距離は{dist}");
         }
     }
 
